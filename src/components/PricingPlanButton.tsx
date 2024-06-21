@@ -2,31 +2,39 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import Button from "./Button";
 import { useRouter } from "expo-router";
-import { ThemedView } from "./ThemedView";
 
 type PricingPlanButtonProps = {
   planName: string;
+  showAll: boolean;
+  buttonWidth: number;
 };
 
 export default function PricingPlanButton({
   planName,
+  showAll,
+  buttonWidth,
 }: PricingPlanButtonProps) {
   const router = useRouter();
 
+  const handlePress = () => {
+    router.push({
+      pathname: `[plan]`,
+      params: { showAll: showAll ? "true" : "false", planName },
+    });
+  };
+
   return (
-    // <ThemedView style={styles.buttonContainer}>
-    <Button
-      text={planName}
-      onPress={() => router.push({ pathname: `[plan]`, params: { planName } })}
-    />
-    // </ThemedView>
+    <View style={[{ width: buttonWidth }]}>
+      <Button
+        text={showAll ? "I am not sure, show me all" : planName}
+        onPress={handlePress}
+      />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    flex: 1,
     justifyContent: "center",
-    padding: 10,
   },
 });

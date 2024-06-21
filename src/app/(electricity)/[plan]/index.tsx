@@ -1,17 +1,19 @@
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useLocalSearchParams, Stack } from "expo-router";
 import PricingDetails from "@/src/components/PricingDetails";
-import { pricingPlans } from "@/assets/data/pricingPlans";
 import { ThemedView } from "@/src/components/ThemedView";
 
 export default function PlanDetails() {
-  const { planName } = useLocalSearchParams<{ planName: string }>();
+  const { planName, showAll } = useLocalSearchParams<{
+    planName: string;
+    showAll: boolean;
+  }>();
 
   return (
     <ThemedView style={styles.container}>
-      <Stack.Screen options={{ title: planName }} />
-      <PricingDetails selectedPlan={planName} pricingPlans={pricingPlans} />
+      <Stack.Screen options={{ title: "Details" }} />
+      <PricingDetails selectedPlan={planName} showAll={showAll === "true"} />
     </ThemedView>
   );
 }
